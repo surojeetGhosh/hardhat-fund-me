@@ -37,5 +37,12 @@ module.exports = {
   },
   etherscan: {
     apiKey: process.env.API
+  },
+  gasReporter: {
+    enabled: true,
+    outputFile: "gas-reporter.txt",
+    noColors: true,
+    currency: "USD",
+    coinmarketcap: process.env.COIN_API
   }
 };

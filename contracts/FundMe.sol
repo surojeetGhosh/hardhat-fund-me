@@ -11,7 +11,7 @@ import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 
 // creating custom error const less gas as require uses strings to revert and it const gases
-error NotOwner();
+error FundMe_NotOwner();
 
 // two keyword for optimal constant and immutable
 contract FundMe {
@@ -58,9 +58,20 @@ contract FundMe {
         require(CallSuccess, "Call Failed");
     }
 
+    function CheaperWithdraw() public onlyOwner {
+        address[] memory m_funders = funders;
+        for(uint256 i = 0; i < m_funders.length; i++) {
+            address funderAddress = m_funders[i];
+            addressToAmountFunded[funderAddress] = 0;
+        }
+       
+        funders = new address[](0);
+        (bool CallSuccess,) = payable(msg.sender).call{value: address(this).balance}("");
+        require(CallSuccess, "Call Failed");
+    }
 
     modifier onlyOwner {
-        if(msg.sender != owner) {revert NotOwner();}
+        if(msg.sender != owner) {revert FundMe_NotOwner();}
         _;
     }
     receive() external payable{
