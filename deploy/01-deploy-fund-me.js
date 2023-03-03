@@ -1,5 +1,7 @@
 const networkConfig = require("../hardhat-helper-config");
 const {network} = require("hardhat");
+const verify = require("../utils/verify");
+require("dotenv").config();
 
 module.exports = async ({ getNamedAccounts, deployments}) => {
     const {deploy, log} = deployments;
@@ -27,11 +29,16 @@ module.exports = async ({ getNamedAccounts, deployments}) => {
     const contract = await deploy("FundMe", {
         from: deployer,
         args: [ethUsdPriceFeed],
-        log: true
+        log: true,
+        waitConfirmations: chainId === 5? 6 : 1
     })
-    log("------------------------------------------");
+
+    // verify done
+
+    if( !developmentChains.includes(network.name) && process.env.API) {
+        await verify(contract.address, [ethUsdPriceFeed]);
+    }
+    log("-----------------------------------------")
 }
 
 module.exports.tags = ["all", "fundme"];
-
-module.exports.tags = ["all", "contract"];
