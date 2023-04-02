@@ -14,7 +14,7 @@ module.exports = async ({ getNamedAccounts, deployments}) => {
     // after compiling mockcontract
     const DECIMAL = 8;
     const Initial = 2000_0000_0000;
-    const developmentChains = ["hardhat", "localhost"];
+    const developmentChains = ["hardhat", "localhost", "ganache"];
     if(developmentChains.includes(network.name)) {
         log("Local network detected!");
         await deploy("MockV3Aggregator", {

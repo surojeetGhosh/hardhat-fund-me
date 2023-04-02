@@ -19,7 +19,7 @@ module.exports = {
     "ganache": {
       url: "http://127.0.0.1:7545",
       accounts: [
-        "8a2239648a7168fa88ef32620a0ccdc287107442bfa76ed8c436c8845ec1f94d"
+        "c63433915da7d7f39a2ff3994c826758284aba106d5a268f91c8c884a738c1db"
       ]
     },
     "goerli": {

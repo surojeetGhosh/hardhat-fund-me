@@ -18,7 +18,7 @@ module.exports = async ({ getNamedAccounts, deployments}) => {
     
     // connecting mocks if mock is used then use pricefeed address of mock
     let ethUsdPriceFeed;
-    const developmentChains = ["hardhat", "localhost"];
+    const developmentChains = ["hardhat", "localhost", "ganache"];
 
     if(developmentChains.includes(network.name)) {
         const ethUsdPriceFeedContract = await deployments.get("MockV3Aggregator");
